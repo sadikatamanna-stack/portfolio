@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github Users</title>
+
+        
+       
+    
+</head>
+<body>
+    
+    <button id="showInfo" style="font-size:20px; margin-top:20px; margin-left: 10px;">Load Github Users</button><br>
+    <div id="showme"></div>
+    <script>
+        document.getElementById("showInfo").addEventListener('click', onProcess);
+
+        function onProcess(){
+            var req = new XMLHttpRequest();
+            req.open('GET', 'https://api.github.com/users', true);
+            req.onload = function() {
+                if(req.status==200){
+                    var people = JSON.parse(req.responseText);
+                    var output= '<h1>Github Users</h1>';
+                    for(var i in people){
+                    output +=
+                    
+                    '<div id="individual">'+
+                    '<div id="image">'+
+                        '<img src="'+people[i].avatar_url+'" width="120px" height="120px">'+
+                    '</div>'+
+                    
+                        
+                    
+                    '<ul>'+
+                    '<li>ID: '+people[i].id+'</li>' +
+                    '<li>Login: '+people[i].login+'</li>' +
+                    '<li>Repos:'+people[i].repos_url+'</li>'+
+                    '<li>Events:'+people[i].events_url+'</li>'+
+                    '<li>Organizations:'+people[i].organizations_url+'</li>'+
+                    
+                    '</ul></div>';
+                    
+                    }
+                   
+                    
+            document.getElementById('showme').innerHTML = output;
+
+                }
+                
+            } 
+            req.send();
+        }
+    </script>
+</body>
+</html>
